@@ -152,6 +152,8 @@ void avct_bcb_chnl_open(tAVCT_BCB* p_bcb, tAVCT_LCB_EVT* /* p_data */) {
  ******************************************************************************/
 void avct_bcb_unbind_disc(tAVCT_BCB* /* p_bcb */, tAVCT_LCB_EVT* p_data) {
   p_data->p_ccb->p_bcb = NULL;
+  if (p_data->p_ccb->p_lcb == NULL)
+    p_data->p_ccb->allocated = 0;
   (*p_data->p_ccb->cc.p_ctrl_cback)(avct_ccb_to_idx(p_data->p_ccb), AVCT_BROWSE_DISCONN_CFM_EVT, 0,
                                     NULL);
 }
