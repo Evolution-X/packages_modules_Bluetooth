@@ -69,20 +69,26 @@ public class PlayerSettingsManager {
     /**
      * Updates the active player controller.
      */
-    private void activePlayerChanged(MediaPlayerWrapper mediaPlayerWrapper) {
-        if (mActivePlayerController != null) {
-            mActivePlayerController.unregisterCallback(mControllerCallback);
-        }
-        if (mediaPlayerWrapper != null) {
-            mActivePlayerController = new MediaControllerCompat(mService,
-                    MediaSessionCompat.Token.fromToken(mediaPlayerWrapper.getSessionToken()));
-            mActivePlayerController.registerCallback(mControllerCallback);
-        } else {
-            mActivePlayerController = null;
-            updateRemoteDevice();
-        }
+private void activePlayerChanged(MediaPlayerWrapper mediaPlayerWrapper) {
+    if (mediaPlayerWrapper == null || mediaPlayerWrapper.getSessionToken() == null) {
+        // Handle null MediaPlayerWrapper or session token
+        mActivePlayerController = null;
+        updateRemoteDevice();
+        return;
     }
-
+    if (mActivePlayerController != null) {
+        mActivePlayerController.unregisterCallback(mControllerCallback);
+    }
+    MediaSessionCompat.Token sessionToken = MediaSessionCompat.Token.fromToken(mediaPlayerWrapper.getSessionToken());
+    if (sessionToken == null) {
+        // Handle null session token
+        mActivePlayerController = null;
+        updateRemoteDevice();
+        return;
+    }
+    mActivePlayerController = new MediaControllerCompat(mService, sessionToken);
+    mActivePlayerController.registerCallback(mControllerCallback);
+}
     /**
      * Sends the MediaController values of the active player to the remote device.
      *
