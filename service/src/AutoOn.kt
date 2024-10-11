@@ -118,7 +118,7 @@ class AutoOn(
         timer = null
 
         if (!isSupported()) {
-            val defaultFeatureValue = true
+            val defaultFeatureValue = false
             setEnabledUnchecked(defaultFeatureValue)
             Log.i(TAG, "Feature was set to its default value $defaultFeatureValue")
         } else {
