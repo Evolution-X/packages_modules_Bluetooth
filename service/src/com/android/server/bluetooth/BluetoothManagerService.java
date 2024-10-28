@@ -591,7 +591,7 @@ class BluetoothManagerService {
 
                 if (getState() == BluetoothAdapter.STATE_ON
                     && adapterConnectionState == BluetoothAdapter.STATE_DISCONNECTED) {
-                    mAdapter.disable(mContext.getAttributionSource());
+                    disable(mContext.getAttributionSource().getPackageName(), /*persist*/ true);
                 }
             } catch (RemoteException e) {
                 Log.e(TAG, "setBluetoothTimeout() failed", e);
