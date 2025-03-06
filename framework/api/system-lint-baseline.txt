@@ -43,3 +43,8 @@ BroadcastBehavior: android.bluetooth.BluetoothDevice#ACTION_SWITCH_BUFFER_SIZE:
     Field 'ACTION_SWITCH_BUFFER_SIZE' is missing @BroadcastBehavior
 BroadcastBehavior: android.bluetooth.BluetoothDevice#ACTION_UUID:
     Field 'ACTION_UUID' is missing @BroadcastBehavior
+
+DeprecationMismatch: android.bluetooth.BluetoothCodecConfig#SOURCE_CODEC_TYPE_LHDCV3:
+    Field BluetoothCodecConfig.SOURCE_CODEC_TYPE_LHDCV3: @Deprecated annotation (present) and @deprecated doc tag (not present) do not match
+DeprecationMismatch: android.bluetooth.BluetoothCodecConfig#SOURCE_CODEC_TYPE_LHDCV5:
+    Field BluetoothCodecConfig.SOURCE_CODEC_TYPE_LHDCV5: @Deprecated annotation (present) and @deprecated doc tag (not present) do not match
