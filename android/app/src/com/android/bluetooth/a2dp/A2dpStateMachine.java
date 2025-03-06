@@ -769,6 +769,18 @@ final class A2dpStateMachine extends StateMachine {
                             != newCodecConfig.getCodecSpecific1())) {
                 update = true;
             } else if ((newCodecConfig.getCodecType()
+                            == BluetoothCodecConfig.SOURCE_CODEC_TYPE_LHDCV3)
+                    && (prevCodecConfig != null)
+                    && (prevCodecConfig.getCodecSpecific1()
+                            != newCodecConfig.getCodecSpecific1())) {
+                update = true;
+            } else if ((newCodecConfig.getCodecType()
+                            == BluetoothCodecConfig.SOURCE_CODEC_TYPE_LHDCV5)
+                    && (prevCodecConfig != null)
+                    && (prevCodecConfig.getCodecSpecific1()
+                            != newCodecConfig.getCodecSpecific1())) {
+                update = true;
+            } else if ((newCodecConfig.getCodecType()
                             == BluetoothCodecConfig.SOURCE_CODEC_TYPE_OPUS)
                     && (prevCodecConfig != null)
                     // check framesize field
