@@ -459,6 +459,8 @@ package android.bluetooth {
     field @Deprecated public static final int SOURCE_CODEC_TYPE_INVALID = 1000000; // 0xf4240
     field @Deprecated public static final int SOURCE_CODEC_TYPE_LC3 = 5; // 0x5
     field @Deprecated public static final int SOURCE_CODEC_TYPE_LDAC = 4; // 0x4
+    field @Deprecated public static final int SOURCE_CODEC_TYPE_LHDCV3 = 7; // 0x7
+    field @Deprecated public static final int SOURCE_CODEC_TYPE_LHDCV5 = 8; // 0x8
     field @Deprecated public static final int SOURCE_CODEC_TYPE_OPUS = 6; // 0x6
     field @Deprecated public static final int SOURCE_CODEC_TYPE_SBC = 0; // 0x0
   }

@@ -249,7 +249,12 @@ tA2DP_STATUS BtaAvCo::ProcessSourceGetConfig(tBTA_AV_HNDL bta_av_handle,
   // Select the Source codec
   const BtaAvCoSep* p_sink = nullptr;
   if (p_peer->acceptor) {
-    UpdateAllSelectableSourceCodecs(p_peer);
+
+    // Savitech Patch - START
+    //UpdateAllSelectableSourceCodecs(p_peer);
+    size_t updated_codecs = UpdateAllSelectableSourceCodecs(p_peer);
+    // Savitech Patch - END
+
     if (p_peer->p_sink == nullptr) {
       // Update the selected codec
       p_peer->p_sink = peer_cache_->FindPeerSink(
@@ -260,6 +265,14 @@ tA2DP_STATUS BtaAvCo::ProcessSourceGetConfig(tBTA_AV_HNDL bta_av_handle,
       log::error("cannot find the selected codec for peer {}", p_peer->addr);
       return A2DP_FAIL;
     }
+    // Savitech Patch - START
+    //    NOTE: Dispatch the event to make sure a callback with the most recent UPDATED
+    //    codec info is generated.
+    if (updated_codecs > 0) {
+      log::info(": onCodecConfigChanged(updated_codecs:{})",  updated_codecs);
+      ReportSourceCodecState(p_peer);
+    }
+    // Savitech Patch - END
   } else {
     if (btif_av_peer_prefers_mandatory_codec(p_peer->addr, A2dpType::kSource)) {
       // Apply user preferred codec directly before first codec selected.
@@ -1418,7 +1431,9 @@ static bool bta_av_co_should_select_hardware_codec(
   // Prioritize LDAC, AptX HD and AptX over AAC and SBC offload codecs
   if (software_codec_index == BTAV_A2DP_CODEC_INDEX_SOURCE_LDAC ||
       software_codec_index == BTAV_A2DP_CODEC_INDEX_SOURCE_APTX_HD ||
-      software_codec_index == BTAV_A2DP_CODEC_INDEX_SOURCE_APTX) {
+      software_codec_index == BTAV_A2DP_CODEC_INDEX_SOURCE_APTX ||
+      software_codec_index == BTAV_A2DP_CODEC_INDEX_SOURCE_LHDCV3 ||
+      software_codec_index == BTAV_A2DP_CODEC_INDEX_SOURCE_LHDCV5) {
     log::verbose("select software codec: {}", A2DP_CodecIndexStr(software_codec_index));
     return false;
   }
