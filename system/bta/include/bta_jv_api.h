@@ -85,7 +85,7 @@ typedef uint8_t tBTA_JV_L2CAP_REASON;
 #define BTA_JV_MAX_RFC_CONN MAX_RFC_PORTS
 
 #ifndef BTA_JV_DEF_RFC_MTU
-#define BTA_JV_DEF_RFC_MTU (3 * 330)
+#define BTA_JV_DEF_RFC_MTU 1007  // Optimized for 3DH5
 #endif
 
 #ifndef BTA_JV_MAX_RFC_SR_SESSION
