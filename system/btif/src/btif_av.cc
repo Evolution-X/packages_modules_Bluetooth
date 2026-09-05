@@ -4223,7 +4223,7 @@ void btif_av_source_metadata_changed(btav_a2dp_codec_audio_context_t audio_conte
 
   btif_av_set_latency_req_t set_latency_req = {
           .is_low_latency = audio_context == BTAV_A2DP_CODEC_AUDIO_CONTEXT_GAME,
-          .reconfigure_codec = true,
+          .reconfigure_codec = false,
   };
 
   BtifAvEvent btif_av_event(BTIF_AV_SET_LATENCY_REQ_EVT, &set_latency_req, sizeof(set_latency_req));
