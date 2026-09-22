@@ -568,6 +568,16 @@ static void process_l2cap_cmd(tL2C_LCB* p_lcb, uint8_t* p, uint16_t pkt_len) {
               STREAM_TO_UINT32(cfg_info.ext_flow_spec.flush_timeout, p);
               break;
 
+            case 0x7F:
+              // REDMI Buds 8 Pro propose a proprietary option on the AVDTP
+              // signalling channel and abort it when rejected. Accept and
+              // ignore: AVDTP never consumes L2CAP options.
+              if (p + cfg_len > p_next_cmd) {
+                return;
+              }
+              p += cfg_len;
+              break;
+
             default:
               /* sanity check option length */
               if ((cfg_len + L2CAP_CFG_OPTION_OVERHEAD) <= cmd_len) {
